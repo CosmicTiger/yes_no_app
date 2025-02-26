@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/other_message_bubble.dart';
+import 'package:yes_no_app/presentation/widgets/shared/message_field_box.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -67,7 +68,9 @@ class _ChatView extends StatelessWidget {
               /// In this case, we are using it to create a list of chat messages that in runtime will manage all the items that are currently at the screen,
               /// the ones that were already in the screen and the ones that are going to be in the screen. All other elements are going to be disposed until they are requested by demand.
               ),
-          Text('Hello chat'),
+
+          /// NOTE: MessageFieldBox is a custom widget that we created to represent the message field in the chat screen.
+          const MessageFieldBox(),
         ]),
       ),
     );
