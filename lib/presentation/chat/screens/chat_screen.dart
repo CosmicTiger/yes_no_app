@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/presentation/chat/widgets/my_message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -53,16 +54,7 @@ class _ChatView extends StatelessWidget {
             itemBuilder: (context, index) {
               /// NOTE: ListView.builder can have an arrow function or a structured function that is called for each item in the list.
               /// Or directly another widget. In this case, we are using a structured functions.
-              return ListTile(
-                /// NOTE: ListTile is a widget that represents a single fixed-height row that usually contains some text as well as a leading or trailing icon.
-                /// In this case, we are using it to represent a chat message.
-                title: Text('Message $index'),
-                subtitle: Text('This is the message $index'),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://rivalskins.com/wp-content/uploads/marvel-assets/items/costume/19/img_vengeance.webp"),
-                ),
-              );
+              return const MyMessageBubble();
             },
           )
 
