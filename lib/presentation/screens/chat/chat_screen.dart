@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_app/presentation/domain/entities/message.dart';
+import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/other_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/shared/message_field_box.dart';
@@ -38,6 +41,8 @@ class ChatScreen extends StatelessWidget {
 class _ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
+
     /// NOTE: SafeArea is a widget that allows you to avoid the status bar, notches, and other system-provided areas.
     /// As it names suggests, move your application content to a safe area that does not affect the system-provided widgets.
     /// Therefore, not affecting UX. In this case, we are using it to avoid the menu bar at
@@ -51,16 +56,21 @@ class _ChatView extends StatelessWidget {
           // Expanded(child: Container(color: Colors.grey[200])), NOTE: This is a placeholder for the chat messages.
           /// NOTE: Expanded is a widget that expands a child of a Row, Column, or Flex so that the child fills the available space.
           /// In this case, we are using it to expand the Container to fill the available space.
-          Expanded(child: ListView.builder(
-            // itemCount: 100, /// NOTE: When ListView has no itemCount explicitly defined, it will create an infinite list.
+          Expanded(
+              child: ListView.builder(
+            itemCount: chatProvider.messageList.length,
+
+            /// NOTE: When ListView has no itemCount explicitly defined, it will create an infinite list.
             itemBuilder: (context, index) {
               /// NOTE: ListView.builder can have an arrow function or a structured function that is called for each item in the list.
               /// Or directly another widget. In this case, we are using a structured functions.
               // return const MyMessageBubble();
 
-              return (index % 2 == 0)
-                  ? const MyMessageBubble()
-                  : const OtherMessageBubble();
+              final message = chatProvider.messageList[index];
+
+              return (message.fromWho == FromWho.other)
+                  ? const OtherMessageBubble()
+                  : MyMessageBubble(messageToRender: message);
             },
           )
 
