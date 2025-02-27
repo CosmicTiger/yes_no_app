@@ -58,6 +58,9 @@ class _ChatView extends StatelessWidget {
           /// In this case, we are using it to expand the Container to fill the available space.
           Expanded(
               child: ListView.builder(
+            controller: chatProvider.chatScrollController,
+
+            /// NOTE: ScrollController serves for the purpose of the move the scroll of the ListView to a specific position.
             itemCount: chatProvider.messageList.length,
 
             /// NOTE: When ListView has no itemCount explicitly defined, it will create an infinite list.
@@ -80,7 +83,12 @@ class _ChatView extends StatelessWidget {
               ),
 
           /// NOTE: MessageFieldBox is a custom widget that we created to represent the message field in the chat screen.
-          const MessageFieldBox(),
+          MessageFieldBox(
+            // onValue: (value) => chatProvider.sendMessage(value) /// NOTE: Using the callback directly and explicitly.
+            onValue: chatProvider.sendMessage,
+
+            /// NOTE: Using the callback indirectly and implicitly through reference.
+          ),
         ]),
       ),
     );
